@@ -11,12 +11,22 @@
     <!-- Background Wallpaper Layer -->
     <div class="desktop-background" onclick="closeStartMenu()">
       
-        <!-- Left Side Desktop App Shortcuts -->
-        <div class="shortcut-container">
-            <button class="icon-btn" onclick="openApp('gameApp'); event.stopPropagation();">🎮 Games Hub</button>
+        <!-- Windows Style Grid Desktop Shortcuts Layout -->
+        <div class="shortcut-grid">
+            <div class="desktop-shortcut" onclick="openApp('gameApp'); event.stopPropagation();">
+                <div class="shortcut-icon">🎮</div>
+                <div class="shortcut-text">Games Hub</div>
+            </div>
+            <!-- To add another desktop app shortcut in the future, just uncomment or copy the lines below: -->
+            <!--
+            <div class="desktop-shortcut" onclick="alert('App coming soon!'); event.stopPropagation();">
+                <div class="shortcut-icon">📁</div>
+                <div class="shortcut-text">My Files</div>
+            </div>
+            -->
         </div>
 
-        <!-- Central Application Window -->
+        <!-- Central Application Window Layout Frame -->
         <div id="gameApp" class="app-window active">
             <div class="window-header">
                 <span>Chill Hub v1.4 - Games Dashboard</span>
@@ -27,27 +37,34 @@
             </div>
         </div>
 
-        <!-- Pop-up Functional Start Menu UI -->
+        <!-- Centered Windows-style Start Menu Flyout -->
         <div id="startMenu" class="start-menu" onclick="event.stopPropagation();">
-            <div class="start-menu-header">🌸 Chill Hub OS</div>
+            <div class="start-menu-header">Pinned Apps</div>
             <div class="start-menu-items">
                 <button class="menu-item" onclick="openApp('gameApp'); closeStartMenu();">🎮 Games Dashboard</button>
-                <button class="menu-item" onclick="alert('No updates found! System up to date.'); closeStartMenu();">ℹ️ Check for Updates</button>
-                <button class="menu-item" style="color: #ff5555;" onclick="triggerRestart()">🔄 System Reboot</button>
+                <button class="menu-item" onclick="alert('No system updates found!'); closeStartMenu();">ℹ️ System Status</button>
+                <button class="menu-item" onclick="triggerRestart()">🔄 Restart System</button>
             </div>
         </div>
 
-        <!-- System Bottom Taskbar Layout Section -->
+        <!-- Modern Unified Windows Bottom Taskbar UI -->
         <div class="taskbar" onclick="event.stopPropagation();">
-            <button class="start-menu-btn" onclick="toggleStartMenu(event)">🔮 Start</button>
             
-            <!-- Quick tab indicator tracking open windows -->
-            <div class="taskbar-apps">
-                <div class="taskbar-app-tab active-tab" onclick="openApp('gameApp')">🎮 Games Hub</div>
+            <!-- Left Side Element Spacer Placeholder -->
+            <div style="width: 80px;"></div>
+            
+            <!-- Centered Windows Pinned Apps Core Tray -->
+            <div class="taskbar-center">
+                <button class="start-menu-btn" onclick="toggleStartMenu(event)">🔮</button>
+                <div id="taskbarGames" class="taskbar-app-icon active-tab" onclick="openApp('gameApp')" title="Games Hub">🎮</div>
             </div>
             
-            <!-- Relocated power button nested inside the taskbar tray -->
-            <button class="power-btn" onclick="triggerRestart()">🔄 Restart OS</button>
+            <!-- Windows Right-Side Tray: Clock & Quick Power Utility -->
+            <div class="taskbar-right">
+                <div id="liveClock" class="system-tray-clock">12:00 PM<br>11/10/2026</div>
+                <button class="power-btn" onclick="triggerRestart()" title="Power Options">🛑</button>
+            </div>
+            
         </div>
 
     </div>
@@ -56,11 +73,11 @@
     <div id="restartScreen" class="restart-overlay">
         <div class="restart-box">
             <div class="spinner"></div>
-            <p>Rebooting Chillhub Web OS...</p>
+            <p>Restarting...</p>
         </div>
     </div>
 
-    <!-- Load interaction engine logic handler -->
+    <!-- Load interactive operations control script -->
     <script src="script.js"></script>
 </body>
 </html>
