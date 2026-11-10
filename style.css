@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. CORE CORE RESET & SYSTEM SETUP
+   1. CORE RESET & SYSTEM SETUP
    ========================================================================== */
 body, html {
     margin: 0;
@@ -8,17 +8,17 @@ body, html {
     width: 100%;
     overflow: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    user-select: none; /* Prevents text highlighting while dragging or clicking */
+    user-select: none;
 }
 
 /* ==========================================================================
-   2. DESKTOP BACKGROUND & INTERFACE WALLPAPER
+   2. DESKTOP BACKGROUND & WALLPAPER (FIXED PATH)
    ========================================================================== */
 .desktop-background {
     width: 100%;
     height: 100%;
     position: relative;
-    background: url("bg.gif") no-repeat center center;
+    background: #1a1a2e url("bg.gif") no-repeat center center;
     background-size: cover;
     display: flex;
     align-items: center;
@@ -62,25 +62,21 @@ body, html {
     box-shadow: 0 0 20px rgba(255, 121, 198, 0.6);
 }
 
-.icon-btn:active {
-    transform: translateY(0);
-}
-
 /* ==========================================================================
    4. CENTRAL APPLICATION WINDOWS
    ========================================================================== */
 .app-window {
     display: none; 
     position: absolute;
-    top: 50%;
+    top: 48%; /* Positioned slightly higher to clear the new taskbar space */
     left: 50%;
     transform: translate(-50%, -50%);
     width: 850px;
     height: 550px;
     max-width: 95vw;
-    max-height: 85vh;
+    max-height: 78vh;
     background: rgba(15, 15, 26, 0.95);
-    border: 3px solid #ff79c6; /* Neon pink aesthetic frame */
+    border: 3px solid #ff79c6;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 121, 198, 0.25);
     z-index: 10;
@@ -98,7 +94,6 @@ body, html {
     to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Window Header Bar */
 .window-header {
     padding: 14px 18px;
     background: #ff79c6;
@@ -111,7 +106,6 @@ body, html {
     letter-spacing: 0.5px;
 }
 
-/* Main Dashboard Canvas App View */
 .window-content {
     flex-grow: 1;
     width: 100%;
@@ -126,7 +120,6 @@ body, html {
     display: block;
 }
 
-/* Header Close Button Options */
 .close-btn {
     background: #1a1a2e;
     color: #ff79c6;
@@ -143,37 +136,90 @@ body, html {
     background: #ff5555;
     color: #ffffff;
     border-color: #ff5555;
-    box-shadow: 0 0 10px rgba(255, 85, 85, 0.5);
 }
 
 /* ==========================================================================
-   5. SYSTEM CONTROL MODULES
+   5. SYSTEM BOTTOM TASKBAR LAYOUT
    ========================================================================== */
-.power-btn {
+.taskbar {
     position: absolute;
-    bottom: 30px;
-    right: 30px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 52px;
+    background: rgba(15, 15, 26, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 2px solid rgba(255, 121, 198, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.start-menu-btn {
+    background: #ff79c6;
+    color: #1a1a2e;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    margin-right: 20px;
+}
+
+.start-menu-btn:hover {
+    box-shadow: 0 0 12px #ff79c6;
+    transform: scale(1.03);
+}
+
+.taskbar-apps {
+    display: flex;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.taskbar-app-tab {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(255, 121, 198, 0.2);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.taskbar-app-tab:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.taskbar-app-tab.active-tab {
+    background: rgba(255, 121, 198, 0.2);
+    border-color: #ff79c6;
+    box-shadow: inset 0 0 8px rgba(255, 121, 198, 0.2);
+}
+
+.power-btn {
     background: rgba(255, 85, 85, 0.15);
     color: #ff5555;
-    border: 2px solid rgba(255, 85, 85, 0.5);
-    padding: 12px 20px;
-    border-radius: 8px;
+    border: 1px solid rgba(255, 85, 85, 0.5);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 14px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease;
-    z-index: 5;
 }
 
 .power-btn:hover {
     background: #ff5555;
     color: #ffffff;
-    border-color: #ff5555;
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 85, 85, 0.6);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.5);
 }
 
 /* ==========================================================================
@@ -187,7 +233,7 @@ body, html {
     width: 100%;
     height: 100%;
     background: #0f0f1a;
-    z-index: 99999; /* Higher priority than standard app frames */
+    z-index: 99999;
     justify-content: center;
     align-items: center;
 }
@@ -200,7 +246,6 @@ body, html {
     letter-spacing: 1px;
 }
 
-/* Animated Neon System Spinner Layout */
 .spinner {
     width: 55px;
     height: 55px;
