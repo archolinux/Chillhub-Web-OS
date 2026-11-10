@@ -1,6 +1,5 @@
 // Function to launch specific app modules
 function openApp(appId) {
-    // Optional: Hide other active apps if you want a single focus layout
     let windows = document.querySelectorAll('.app-window');
     windows.forEach(win => win.classList.remove('active'));
     
@@ -20,4 +19,18 @@ function triggerRestart() {
     setTimeout(function() {
         window.location.reload();
     }, 2200);
+}
+
+// System Start Menu Navigation Toggles
+function toggleStartMenu(event) {
+    event.stopPropagation(); // Prevents clicking the button from triggering a background click close
+    let menu = document.getElementById("startMenu");
+    menu.classList.toggle("active");
+}
+
+function closeStartMenu() {
+    let menu = document.getElementById("startMenu");
+    if (menu.classList.contains("active")) {
+        menu.classList.remove("active");
+    }
 }
