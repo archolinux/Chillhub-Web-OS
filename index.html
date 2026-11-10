@@ -9,11 +9,11 @@
 <body>
 
     <!-- Background Wallpaper Layer -->
-    <div class="desktop-background">
+    <div class="desktop-background" onclick="closeStartMenu()">
       
         <!-- Left Side Desktop App Shortcuts -->
         <div class="shortcut-container">
-            <button class="icon-btn" onclick="openApp('gameApp')">🎮 Games Hub</button>
+            <button class="icon-btn" onclick="openApp('gameApp'); event.stopPropagation();">🎮 Games Hub</button>
         </div>
 
         <!-- Central Application Window -->
@@ -27,9 +27,19 @@
             </div>
         </div>
 
+        <!-- Pop-up Functional Start Menu UI -->
+        <div id="startMenu" class="start-menu" onclick="event.stopPropagation();">
+            <div class="start-menu-header">🌸 Chill Hub OS</div>
+            <div class="start-menu-items">
+                <button class="menu-item" onclick="openApp('gameApp'); closeStartMenu();">🎮 Games Dashboard</button>
+                <button class="menu-item" onclick="alert('No updates found! System up to date.'); closeStartMenu();">ℹ️ Check for Updates</button>
+                <button class="menu-item" style="color: #ff5555;" onclick="triggerRestart()">🔄 System Reboot</button>
+            </div>
+        </div>
+
         <!-- System Bottom Taskbar Layout Section -->
-        <div class="taskbar">
-            <button class="start-menu-btn" onclick="alert('Start Menu features coming soon!')">🔮 Start</button>
+        <div class="taskbar" onclick="event.stopPropagation();">
+            <button class="start-menu-btn" onclick="toggleStartMenu(event)">🔮 Start</button>
             
             <!-- Quick tab indicator tracking open windows -->
             <div class="taskbar-apps">
