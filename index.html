@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chill Hub Web OS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Wallpaper Layer (You can replace the background color in style.css with your GIF) -->
+    <div class="desktop-background">
+      
+        <!-- Left Side Desktop App Shortcuts -->
+        <div class="shortcut-container">
+            <button class="icon-btn" onclick="openApp('gameApp')">🎮 Games Hub</button>
+            <!-- Add future apps here if you create more windows later! -->
+        </div>
+
+        <!-- Central Application Window (Loads your FreezeNova games frame) -->
+        <div id="gameApp" class="app-window active">
+            <div class="window-header">
+                <span>Chill Hub v1.4 - Games Dashboard</span>
+                <button class="close-btn" onclick="closeApp('gameApp')">✖</button>
+            </div>
+            <div class="window-content">
+                <iframe src="https://freezenova.cloud" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <!-- Power Management / Quick Restart Action Component -->
+        <button class="power-btn" onclick="triggerRestart()">🔄 Restart OS</button>
+
+    </div>
+
+    <!-- Full-Screen Interactive Reboot Sequence Overlay Screen -->
+    <div id="restartScreen" class="restart-overlay">
+        <div class="restart-box">
+            <div class="spinner"></div>
+            <p>Rebooting Chillhub Web OS...</p>
+        </div>
+    </div>
+
+    <!-- Load your interaction core handling script -->
+    <script src="script.js"></script>
+</body>
+</html>
