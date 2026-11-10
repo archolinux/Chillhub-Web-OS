@@ -1,22 +1,74 @@
+/* ==========================================================================
+   1. CORE CORE RESET & SYSTEM SETUP
+   ========================================================================== */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
     overflow: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none; /* Prevents text highlighting while dragging or clicking */
 }
 
-/* Background Wallpaper Layer */
+/* ==========================================================================
+   2. DESKTOP BACKGROUND & INTERFACE WALLPAPER
+   ========================================================================== */
 .desktop-background {
     width: 100%;
     height: 100%;
-    background: #1a1a2e; /* Dark fallback background color */
     position: relative;
+    background: url("bg.gif") no-repeat center center;
     background-size: cover;
-    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* App Window Setup */
+/* ==========================================================================
+   3. DESKTOP SHORTCUT SIDEBAR
+   ========================================================================== */
+.shortcut-container {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 5;
+}
+
+.icon-btn {
+    background: rgba(15, 15, 26, 0.6);
+    color: #ffffff;
+    border: 2px solid rgba(255, 121, 198, 0.4);
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-btn:hover {
+    background: #ff79c6;
+    color: #1a1a2e;
+    border-color: #ff79c6;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 121, 198, 0.6);
+}
+
+.icon-btn:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   4. CENTRAL APPLICATION WINDOWS
+   ========================================================================== */
 .app-window {
     display: none; 
     position: absolute;
@@ -25,103 +77,108 @@ body, html {
     transform: translate(-50%, -50%);
     width: 850px;
     height: 550px;
+    max-width: 95vw;
+    max-height: 85vh;
     background: rgba(15, 15, 26, 0.95);
-    border: 3px solid #ff79c6; /* Pink accent border */
-    border-radius: 8px;
-    box-shadow: 0 0 25px rgba(255, 121, 198, 0.3);
+    border: 3px solid #ff79c6; /* Neon pink aesthetic frame */
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 121, 198, 0.25);
     z-index: 10;
     flex-direction: column;
+    overflow: hidden;
+    animation: windowOpen 0.25s cubic-bezier(0.1, 0.8, 0.25, 1);
 }
 
 .app-window.active {
     display: flex;
 }
 
+@keyframes windowOpen {
+    from { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Window Header Bar */
 .window-header {
-    padding: 12px;
+    padding: 14px 18px;
     background: #ff79c6;
     color: #1a1a2e;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    letter-spacing: 0.5px;
 }
 
+/* Main Dashboard Canvas App View */
 .window-content {
     flex-grow: 1;
     width: 100%;
-    height: calc(100% - 45px);
+    height: calc(100% - 48px);
+    background: #000000;
 }
 
+.window-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* Header Close Button Options */
 .close-btn {
     background: #1a1a2e;
     color: #ff79c6;
     border: 1px solid #1a1a2e;
-    padding: 2px 8px;
+    padding: 4px 10px;
+    font-size: 12px;
     cursor: pointer;
     font-weight: bold;
-    border-radius: 4px;
+    border-radius: 6px;
+    transition: all 0.15s ease;
 }
 
 .close-btn:hover {
     background: #ff5555;
-    color: white;
+    color: #ffffff;
+    border-color: #ff5555;
+    box-shadow: 0 0 10px rgba(255, 85, 85, 0.5);
 }
 
-/* Desktop Sidebar Shortcuts */
-.shortcut-container {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.icon-btn {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    padding: 12px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    backdrop-filter: blur(5px);
-    transition: all 0.2s ease;
-}
-
-.icon-btn:hover {
-    background: #ff79c6;
-    color: #1a1a2e;
-    border-color: #ff79c6;
-    box-shadow: 0 0 15px #ff79c6;
-}
-
-/* System Control Actions */
+/* ==========================================================================
+   5. SYSTEM CONTROL MODULES
+   ========================================================================== */
 .power-btn {
     position: absolute;
     bottom: 30px;
     right: 30px;
-    background: rgba(255, 85, 85, 0.2);
+    background: rgba(255, 85, 85, 0.15);
     color: #ff5555;
-    border: 2px solid #ff5555;
+    border: 2px solid rgba(255, 85, 85, 0.5);
     padding: 12px 20px;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    backdrop-filter: blur(5px);
+    font-size: 14px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease;
+    z-index: 5;
 }
 
 .power-btn:hover {
     background: #ff5555;
-    color: white;
-    box-shadow: 0 0 15px #ff5555;
+    color: #ffffff;
+    border-color: #ff5555;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 85, 85, 0.6);
 }
 
-/* Reboot Overlay Interface */
+/* ==========================================================================
+   6. VIRTUAL SHUTDOWN/REBOOT INTERFACE SCREEN OVERLAY
+   ========================================================================== */
 .restart-overlay {
     display: none;
     position: fixed;
@@ -130,7 +187,7 @@ body, html {
     width: 100%;
     height: 100%;
     background: #0f0f1a;
-    z-index: 9999;
+    z-index: 99999; /* Higher priority than standard app frames */
     justify-content: center;
     align-items: center;
 }
@@ -138,18 +195,21 @@ body, html {
 .restart-box {
     text-align: center;
     color: #ff79c6;
-    font-family: monospace;
-    font-size: 22px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    letter-spacing: 1px;
 }
 
+/* Animated Neon System Spinner Layout */
 .spinner {
-    width: 60px;
-    height: 60px;
-    border: 6px solid rgba(255, 255, 255, 0.1);
-    border-top: 6px solid #ff79c6;
+    width: 55px;
+    height: 55px;
+    border: 5px solid rgba(255, 255, 255, 0.05);
+    border-top: 5px solid #ff79c6;
     border-radius: 50%;
     margin: 0 auto 25px auto;
-    animation: spin 1s linear infinite;
+    box-shadow: 0 0 15px rgba(255, 121, 198, 0.2);
+    animation: spin 0.85s linear infinite;
 }
 
 @keyframes spin {
